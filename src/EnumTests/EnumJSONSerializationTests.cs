@@ -32,7 +32,7 @@ namespace EnumTests
 			Assert.AreEqual<string>(StartMsg.Options.ToString(), EndMsg.Options.ToString());
 		}
 
-		[TestMethod] 
+		[TestMethod] // This is much better. Using a Newtonsoft attribute on the enum, forces the ToString on the enum instead of the index
 		public void SerializingWithStraightEnumsUsingJasonAttributes()
 		{
 			var StartMsg = new MessageWithOptions1EnumWithAttribute () { Options = Options.Large };
