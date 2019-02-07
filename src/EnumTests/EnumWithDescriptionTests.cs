@@ -46,7 +46,19 @@ namespace EnumTests
 		public void ValidateToValueOrStringExtension_With_Custom_Descriptor()
 		{
 			Assert.IsTrue(StringCompare(OptionsWithDescriptions.Large.ToValueOrString<ValueForSystemX>(), "SuperSized"));
+			Assert.IsTrue(StringCompare(OptionsWithDescriptions.Large.ToValueOrString<ValueForSystemY>(), "MuyBig"));
+			Assert.IsTrue(StringCompare(OptionsWithDescriptions.Large.Description(), "Largish"));
 		}
+
+		[TestMethod]
+		public void ValidateToValueOrStringExtension_With_CustomDescriptions_checking_vars()
+		{
+			var option = OptionsWithDescriptions.Large;
+			Assert.IsTrue(StringCompare(option.ToValueOrString<ValueForSystemX>(), "SuperSized"));
+			Assert.IsTrue(StringCompare(option.ToValueOrString<ValueForSystemY>(), "MuyBig"));
+			Assert.IsTrue(StringCompare(option.Description(), "Largish"));
+		}
+
 		[TestMethod]
 		public void ValidateToValueOrStringExtension_Uses_ToString_When_Descriptor_Is_Missing()
 		{

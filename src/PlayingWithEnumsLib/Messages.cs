@@ -38,11 +38,15 @@ namespace PlayingWithEnumsLib
 	{
 		[Description("Smallish")]
 		Small,
+
 		[Description("Largish")]
 		[ValueForSystemX("SuperSized")]
+		[ValueForSystemY("MuyBig")]
 		Large,
+
 		[Description("No Idea")]
 		Unknown,
+
 		[Description("Avg I guess")]
 		Medium
 	}
@@ -116,6 +120,13 @@ namespace PlayingWithEnumsLib
 	public class ValueForSystemX : DescriptionAttribute
 	{
 		public ValueForSystemX(string description) : base(description)
+		{
+		}
+	}
+
+	public class ValueForSystemY : DescriptionAttribute
+	{
+		public ValueForSystemY(string description) : base(description)
 		{
 		}
 	}
