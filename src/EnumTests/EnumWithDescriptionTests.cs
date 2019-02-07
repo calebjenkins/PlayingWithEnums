@@ -48,6 +48,7 @@ namespace EnumTests
 			Assert.IsTrue(StringCompare(OptionsWithDescriptions.Large.ToValueOrString<ValueForSystemX>(), "SuperSized"));
 			Assert.IsTrue(StringCompare(OptionsWithDescriptions.Large.ToValueOrString<ValueForSystemY>(), "MuyBig"));
 			Assert.IsTrue(StringCompare(OptionsWithDescriptions.Large.Description(), "Largish"));
+			Assert.IsTrue(StringCompare(OptionsWithDescriptions.Large.ToString(), "Large"));
 		}
 
 		[TestMethod]

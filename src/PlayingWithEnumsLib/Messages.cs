@@ -1,5 +1,4 @@
-﻿using EnumTests;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
 using System.ComponentModel;
@@ -49,19 +48,6 @@ namespace PlayingWithEnumsLib
 
 		[Description("Avg I guess")]
 		Medium
-	}
-
-	public enum OptionsWithCustom
-	{
-		[CustomAttribute("Hello")]
-		Weird,
-		[Custom("Medium")]
-		Average,
-		[Custom("Large")]
-		ReallyBig,
-		[Custom("Small")]
-		MoreSmall
-
 	}
 
 	public class MessageWithOptionsEnum
