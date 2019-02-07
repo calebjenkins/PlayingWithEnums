@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using EnumTests;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
 using System.ComponentModel;
@@ -6,13 +7,11 @@ using System.Runtime.Serialization;
 
 namespace PlayingWithEnumsLib
 {
-	[DataContract]
 	public enum Options
 	{
 		Unknown,
 		Medium,
 		Small,
-		[EnumMember(Value = "Largish"), Description("Super Large")]
 		Large
 	}
 
@@ -22,6 +21,43 @@ namespace PlayingWithEnumsLib
 		Small,
 		Medium,
 		Unknown
+	}
+
+	[DataContract]
+	public enum OptionWithEnumMember
+	{
+		[EnumMember(Value = "Large")]
+		Largish,
+		[EnumMember(Value = "Medium")]
+		Avg,
+		[EnumMember(Value = "Small")]
+		ReallyLittle
+	}
+
+	public enum OptionsWithDescriptions
+	{
+		[Description("Smallish")]
+		Small,
+		[Description("Largish")]
+		[ValueForSystemX("SuperSized")]
+		Large,
+		[Description("No Idea")]
+		Unknown,
+		[Description("Avg I guess")]
+		Medium
+	}
+
+	public enum OptionsWithCustom
+	{
+		[CustomAttribute("Hello")]
+		Weird,
+		[Custom("Medium")]
+		Average,
+		[Custom("Large")]
+		ReallyBig,
+		[Custom("Small")]
+		MoreSmall
+
 	}
 
 	public class MessageWithOptionsEnum
@@ -47,8 +83,7 @@ namespace PlayingWithEnumsLib
 	public class MessageWithEnumBacking
 	{
 
-		//[NonSerialized]
-		[JsonIgnore]
+		[JsonIgnore] //[NonSerialized]
 		public Options Options
 		{
 			get
@@ -61,5 +96,27 @@ namespace PlayingWithEnumsLib
 
 		[JsonProperty("Options")]
 		public string _options { get; set; }
+	}
+
+	public class MessageWithEnumMemberOptions
+	{
+		public OptionWithEnumMember Options { get; set; }
+	}
+
+	public class MessageOptionsWithDescriptions
+	{
+		public OptionsWithDescriptions Options { get; set; }
+	}
+
+	public class MessageOptionsCustomAttributes
+	{
+		public MessageOptionsCustomAttributes Options { get; set; }
+	}
+
+	public class ValueForSystemX : DescriptionAttribute
+	{
+		public ValueForSystemX(string description) : base(description)
+		{
+		}
 	}
 }

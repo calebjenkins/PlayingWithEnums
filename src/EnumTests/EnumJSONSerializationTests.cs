@@ -11,7 +11,7 @@ namespace EnumTests
 	{
 		[TestMethod] // Passes Will FALSE (Fails)
 		public void SerializingWithStraightEnums()
-		{
+	{
 			//var converter = new Jason
 			var StartMsg = new MessageWithOptionsEnum() { Options = Options.Large };
 			var msgJson = JsonConvert.SerializeObject(StartMsg);
@@ -38,11 +38,21 @@ namespace EnumTests
 			var StartMsg = new MessageWithOptions1EnumWithAttribute () { Options = Options.Large };
 			var msgJson = JsonConvert.SerializeObject(StartMsg);
 
-			var EndMsg = JsonConvert.DeserializeObject<MessageWithOptions1EnumWithAttribute>(msgJson);
+			var EndMsg = JsonConvert.DeserializeObject<MessageWithStringOptions>(msgJson);
 
 			Assert.AreEqual<string>(StartMsg.Options.ToString(), EndMsg.Options.ToString());
 		}
 
+		[TestMethod]
+		public void SerializingWithEnumMemberAttribute_DoesntWork_Enum_Serializes_Index_Instead_of_String()
+		{
+			var StartMsg = new MessageWithEnumMemberOptions() { Options = OptionWithEnumMember.Largish };
+			var msgJson = JsonConvert.SerializeObject(StartMsg);
 
+			var EndMsg = JsonConvert.DeserializeObject<MessageWithStringOptions>(msgJson);
+
+			Assert.AreNotEqual<string>(StartMsg.Options.ToString(), EndMsg.Options.ToString());
+			Assert.AreEqual<string>("0", EndMsg.Options.ToString());
+		}
 	}
 }
