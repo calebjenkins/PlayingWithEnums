@@ -32,5 +32,35 @@ namespace PlayingWithEnumsLib
 			else
 				return value.ToString();
 		}
+
+		public static T? Parse<T>(this string value) where T : struct
+		{
+			var match = Enum.TryParse<T>(value, out var En);
+			return (match ? (T?)En : null);
+		}
+		public static T? Parse<T, D>(this string value)
+								where T : struct
+								where D : DescriptionAttribute
+		{
+			FieldInfo[] fis = typeof(T).GetFields();
+
+			foreach (var fi in fis)
+			{
+				D[] attributes = (D[])fi.GetCustomAttributes( typeof(D), false);
+				if (attributes != null && attributes.Length > 0)
+				{
+					foreach (var attr in attributes)
+					{
+						if (value == attr.Description)
+						{
+							var EnumName = fi.Name;
+							return EnumName.Parse<T>();
+						}
+					}
+				}
+			}
+
+			return null;
+		}
 	}
 }
