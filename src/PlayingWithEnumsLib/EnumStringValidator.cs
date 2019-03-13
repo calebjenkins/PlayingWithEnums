@@ -16,21 +16,17 @@ namespace PlayingWithEnumsLib
 
 		protected override ValidationResult IsValid(object value, ValidationContext validationContext)
 		{
-			//System.NotImplementedException
-			//Message = IsValid(object value) has not been implemented by this class.
-			//The preferred entry point is GetValidationResult() and classes should override IsValid(object value, ValidationContext context).Source=System.ComponentModel.Annotations
-			var fieldName = validationContext.MemberName;
 			var fieldValue = value as string;
+			if (fieldValue.IsNullOrEmpty())
+				return null;
+
+			var fieldName = validationContext.MemberName;
 			var valueList = enumType.ToList();
 
 			if (ignoreCase)
 			{
 				fieldValue = fieldValue.ToUpper();
-				//valueList.ForEach((s) => s = s.ToUpper());
-				for (var i = 0; i < valueList.Count; i++)
-				{
-					valueList[i] = valueList[i].ToUpper();
-				}
+				valueList.ToUpper();
 			}
 
 			var errMessage = (valueList.Contains(fieldValue)) ? string.Empty : $"{fieldName} must be set to one of these values: {valueList.ToDelimitedList(", ")}";

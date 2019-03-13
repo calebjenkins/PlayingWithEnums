@@ -46,6 +46,47 @@ namespace EnumTests
 			Assert.IsTrue(ModelValidation.IsValid(sut));
 		}
 
+		[TestMethod]
+		public void should_validate_property_even_if_missing_but_not_required()
+		{
+			var sut = new ExampleClass() { Size = "" };
+			Assert.IsTrue(ModelValidation.IsValid(sut));
+		}
+
+		[TestMethod]
+		public void should_validate_when_required()
+		{
+			var sut = new RequiredPropertyClass() { Size = "" };
+			Assert.IsFalse(ModelValidation.IsValid(sut));
+		}
+
+		[TestMethod]
+		public void should_validate_when_required_and_populated()
+		{
+			var sut = new RequiredPropertyClass() { Size = "sMall" };
+			Assert.IsTrue(ModelValidation.IsValid(sut));
+		}
+
+		[TestMethod]
+		public void should_validate_when_required_and_populated_incorrectly()
+		{
+			var sut = new RequiredPropertyClass() { Size = "blah" };
+			Assert.IsFalse(ModelValidation.IsValid(sut));
+		}
+
+		[TestMethod]
+		public void should_validate_with_case_sensitivity_when_selected()
+		{
+			var sut = new CaseSensitivePropertyClass() { Size = "sMall" };
+			Assert.IsFalse(ModelValidation.IsValid(sut));
+		}
+		[TestMethod]
+		public void should_validate_with_case_sensitivity_when_selected_and_matches()
+		{
+			var sut = new CaseSensitivePropertyClass() { Size = "Small" };
+			Assert.IsTrue(ModelValidation.IsValid(sut));
+		}
+
 	}
 
 	public class ModelValidation
@@ -61,8 +102,20 @@ namespace EnumTests
 
 	public class ExampleClass
 	{
-	// [DataTypeAttribute(DataType.Custom)]
-	[EnumStringValidator(typeof(OptionsWithDescriptions))] //, ErrorMessageResourceType = typeof(OptionsWithDescriptions))]
+
+		[EnumStringValidator(typeof(OptionsWithDescriptions))]
+		public string Size { get; set; }
+	}
+
+	public class RequiredPropertyClass
+	{
+		[Required(), EnumStringValidator(typeof(OptionsWithDescriptions))]
+		public string Size { get; set; }
+	}
+
+	public class CaseSensitivePropertyClass
+	{
+		[Required(), EnumStringValidator(typeof(OptionsWithDescriptions), false)]
 		public string Size { get; set; }
 	}
 }
