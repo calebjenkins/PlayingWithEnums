@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace PlayingWithEnumsLib
 {
@@ -17,6 +18,10 @@ namespace PlayingWithEnumsLib
 				returnValue = string1.Equals(string2, StringComparison.CurrentCultureIgnoreCase);
 			}
 			return returnValue;
+		}
+		public static string ToDelimitedList(this List<string> list, string delimiter)
+		{
+			return string.Join(delimiter, list.ToArray());
 		}
 	}
 }

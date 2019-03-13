@@ -16,8 +16,8 @@ namespace EnumTests
 
 			Assert.AreEqual(option, newOption);
 
-			Assert.IsTrue("SuperSized".Compare(option.ToValueOrString<ValueForSystemX>()));
-			Assert.IsTrue("MuyBig".Compare(option.ToValueOrString<ValueForSystemY>()));
+			Assert.IsTrue("SuperSized".Compare(option.Description<ValueForSystemX>()));
+			Assert.IsTrue("MuyBig".Compare(option.Description<ValueForSystemY>()));
 			Assert.IsTrue("Largish".Compare(option.Description()));
 		}
 
