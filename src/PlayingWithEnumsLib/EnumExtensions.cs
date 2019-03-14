@@ -1,15 +1,27 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Reflection;
 
 namespace PlayingWithEnumsLib
 {
 	public static class EnumExtensions
 	{
-		public static List<string> ToList(this Type value) 
+		public static List<string> ToList<D>(this Type value) where D : DescriptionAttribute
 		{
-			var list = (value.IsEnum)? Enum.GetNames(value) : throw new ArgumentException(nameof(value) + " must be an enum value");
+			var list = value.ToList();
+			for (int i = 0; i < list.Count; i++)
+			{
+				var workingValue = value.GetField(list[i]).GetCustomAttributes(false).OfType<D>().FirstOrDefault();
+				list[i] = workingValue.Description;
+			}
+			return new List<string>(list);
+		}
+
+		public static List<string> ToList(this Type value)
+		{
+			var list = (value.IsEnum) ? Enum.GetNames(value) : throw new ArgumentException(nameof(value) + " must be an enum value");
 			return new List<string>(list);
 		}
 
@@ -55,21 +67,21 @@ namespace PlayingWithEnumsLib
 			{
 				var enumName = fi.Name;
 
-				D[] attributes = (D[])fi.GetCustomAttributes( typeof(D), false);
+				D[] attributes = (D[])fi.GetCustomAttributes(typeof(D), false);
 				if (attributes != null && attributes.Length > 0)
 				{
 					foreach (var attr in attributes)
 					{
 						if (Compare(value, attr.Description, ignoreCase))
 						{
-							return (T?) enumName.Parse<T>(ignoreCase);
+							return (T?)enumName.Parse<T>(ignoreCase);
 						}
 					}
 				}
 
 				if (Compare(value, enumName, ignoreCase))
 				{
-					return (T?) enumName.Parse<T>(ignoreCase);
+					return (T?)enumName.Parse<T>(ignoreCase);
 				}
 			}
 

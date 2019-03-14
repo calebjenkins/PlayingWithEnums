@@ -4,14 +4,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PlayingWithEnumsLib
 {
-	public class EnumStringValidator : ValidationAttribute
+	public class EnumStringValidator : ValidationAttribute 
 	{
 		private Type enumType;
 		private bool ignoreCase;
-		public EnumStringValidator(Type T, bool ignoreCase = true)
+
+		public EnumStringValidator(Type EnumType, bool IgnoreCase = true)
 		{
-			enumType = (T.IsEnum == true) ? T : throw new ArgumentException(nameof(T) + " must be an enum type");
-			this.ignoreCase = ignoreCase;
+			enumType = (EnumType.IsEnum) ? EnumType : throw new ArgumentException(nameof(EnumType) + " must be an enum type");
+			ignoreCase = IgnoreCase;
 		}
 
 		protected override ValidationResult IsValid(object value, ValidationContext validationContext)
@@ -29,18 +30,8 @@ namespace PlayingWithEnumsLib
 				valueList.ToUpper();
 			}
 
-			var errMessage = (valueList.Contains(fieldValue)) ? string.Empty : $"{fieldName} must be set to one of these values: {valueList.ToDelimitedList(", ")}";
+			var errMessage = (valueList.Contains(fieldValue)) ? string.Empty : $"{fieldName} was {fieldValue}, but must be set to one of these values: {valueList.ToDelimitedList(", ")}";
 			return (errMessage.IsNotNullOrEmpty()) ? new ValidationResult(errMessage) : null;
-
-			//return base.IsValid(value, validationContext);
-
 		}
-
-		protected Func<string, Type, DescriptionAttribute, bool> isValid = (v, T, D) =>
-		 {
-			 //var result = v.Parse<typeof(T)>(true);
-			 // return result.HasValue;
-			 return false;
-		 };
 	}
 }
