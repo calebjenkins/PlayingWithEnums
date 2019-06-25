@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2041
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29001.49
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlayingWithEnumsLib", "PlayingWithEnumsLib\PlayingWithEnumsLib.csproj", "{87CDF597-5B57-466F-A534-1C94F8D5368E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnumTests", "EnumTests\EnumTests.csproj", "{CEA798F0-4E54-4A3B-AA57-B748E545373B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnumTests", "EnumTests\EnumTests.csproj", "{CEA798F0-4E54-4A3B-AA57-B748E545373B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayingWithMappingTests", "PlayingWithMappingTests\PlayingWithMappingTests.csproj", "{BB65DC44-90B3-4477-873B-82D8B901AA4C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{CEA798F0-4E54-4A3B-AA57-B748E545373B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CEA798F0-4E54-4A3B-AA57-B748E545373B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CEA798F0-4E54-4A3B-AA57-B748E545373B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB65DC44-90B3-4477-873B-82D8B901AA4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB65DC44-90B3-4477-873B-82D8B901AA4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB65DC44-90B3-4477-873B-82D8B901AA4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB65DC44-90B3-4477-873B-82D8B901AA4C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
